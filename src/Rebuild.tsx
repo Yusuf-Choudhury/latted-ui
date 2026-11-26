@@ -152,43 +152,175 @@ const FAQ: [string, string][] = [
   ['What happens after I submit my first prompt?', 'Composer plans the video, generates the scenes, voice and music, and assembles a project you can review and refine.'],
 ]
 
-export function Rebuild() {
+
+function Onboard() {
+  return (
+    <section className="lt-wrap lt-sec" id="onboard">
+      <p className="lt-kicker" style={{ textAlign: 'center' }}>Your first five minutes</p>
+      <h2 className="lt-h2c">Latted already knows the brand.</h2>
+      <p className="lt-lead">A short path from your site to a storyboard. You only sign up when you press render, and your draft is already saved.</p>
+      <div className="lt-panel up-onboard">
+        <div className="m-steps">
+          {['Your site', 'Brand kit', 'Pick hooks', 'Storyboard'].map((s, i) => (
+            <span key={s} className={i === 2 ? 'on' : i < 2 ? 'done' : ''}><em>{i + 1}</em>{s}</span>
+          ))}
+        </div>
+        <div className="m-kit">
+          <div><b>Brand kit found</b><span><i className="sw" style={{ background: '#22231f' }} /><i className="sw" style={{ background: '#c46a52' }} /><i className="sw" style={{ background: '#e9d8cf' }} /><i className="sw" style={{ background: '#6c8f7a' }} /></span></div>
+          <div><b>Tone</b><span className="m-chips"><span>Warm</span><span>Direct</span></span></div>
+        </div>
+        <p className="m-label">Choose three hooks to try</p>
+        <div className="m-hooks">
+          {[['Problem first', '"Still scrolling for ad ideas?"', true], ['Result first', '"Seven videos before lunch."', true], ['Question', '"What would you make today?"', false], ['Social proof', 'Add this once you have real reviews', false]].map(([t, q, on]) => (
+            <div key={t as string} className={on ? 'on' : ''}><b>{t as string}</b><span>{q as string}</span></div>
+          ))}
+        </div>
+        <div className="m-foot"><span>Draft saved. Nothing to sign up for yet.</span><a href="#start" className="lt-btn lt-btn-sm">Preview storyboard <Arrow /></a></div>
+      </div>
+    </section>
+  )
+}
+
+function ShareSection() {
+  return (
+    <section className="lt-wrap lt-sec" id="share">
+      <p className="lt-kicker" style={{ textAlign: 'center' }}>Review and invite</p>
+      <h2 className="lt-h2c">Share a cut. Invite the next person.</h2>
+      <p className="lt-lead">A review link for teammates, a small end card on exports, and a give and get credit offer in the same place.</p>
+      <div className="lt-panel up-onboard m-share">
+        <div className="m-sharebox">
+          <div className="m-thumb"><span /></div>
+          <div>
+            <b>Spring launch, version 3</b>
+            <p>Anyone with the link can watch and comment on scenes.</p>
+            <div className="m-copy"><span>latted.example/review/spring-launch</span><span className="lt-btn lt-btn-sm">Copy link</span></div>
+            <label><input type="checkbox" defaultChecked readOnly /> Add a small "Made with Latted" end card</label>
+          </div>
+        </div>
+        <div className="m-ref">
+          <AppIcon size={28} />
+          <div><b>Give a friend $10, get $10</b><p>Suggested to match the $10 starter credit. The exact amount is Latted's call.</p></div>
+        </div>
+        <div className="m-mail"><small>Daily Catch Up email, new footer</small><p>Forward this to a teammate who reviews creative. They can comment without signing up.</p></div>
+      </div>
+    </section>
+  )
+}
+
+function TeardownsSection() {
+  return (
+    <section className="lt-wrap lt-sec" id="teardowns">
+      <p className="lt-kicker" style={{ textAlign: 'center' }}>Ad teardowns</p>
+      <h2 className="lt-h2c">What Explore already knows, published.</h2>
+      <p className="lt-lead">Public pages per category, written so people and AI assistants can quote them. Each one starts with a short answer, then hook, structure and pacing.</p>
+      <div className="lt-panel up-onboard m-page">
+        <small>Ad teardowns / Skincare</small>
+        <h3 className="up-teardown-h">How do skincare video ads open?</h3>
+        <p className="m-answer"><b>Short answer</b> Most start by showing a problem on camera in the first seconds, then move to a routine, then a result. Below are the patterns, with what to copy.</p>
+        <div className="m-pat">
+          {[['Hook', 'Problem on camera'], ['Structure', 'Problem, routine, result'], ['Pacing', 'Fast cuts, then a held shot']].map(([a, b]) => <div key={a}><small>{a}</small><b>{b}</b></div>)}
+        </div>
+        <div className="m-foot"><span className="m-chips"><span>Answer first</span><span>FAQ markup</span><span>llms.txt</span></span><a href="#start" className="lt-btn lt-btn-sm">Use in Composer <Arrow /></a></div>
+        <small className="m-note">Example copy for the layout only. Real pages would use real Explore data.</small>
+      </div>
+    </section>
+  )
+}
+
+function FromAdsSection() {
+  return (
+    <section className="lt-wrap lt-sec" id="from-ads">
+      <p className="lt-kicker" style={{ textAlign: 'center' }}>For teams already running ads</p>
+      <h2 className="lt-h2c">Start from an ad you already have live.</h2>
+      <p className="lt-lead">Paste a Meta Ad Library link, or pick a live ad from Explore, and get three new hooks for it. Built for growth leads who refresh creative often.</p>
+      <div className="lt-panel up-onboard">
+        <div className="lt-url" style={{ margin: '0 auto 18px', maxWidth: 520 }}>
+          <input defaultValue="adlibrary.example/your-live-ad" aria-label="Ad Library link" readOnly />
+          <span className="lt-btn lt-btn-sm">Make three hooks <Arrow /></span>
+        </div>
+        <div className="m-icp">
+          <div className="m-row m-head"><span>Segment</span><span>Signal</span><span>First offer</span></div>
+          {[['Growth leads at apps and games', 'Many live ads, often refreshed', 'Three new hooks for a live ad'], ['DTC brands with small teams', 'Steady ad spend, few variants', 'Same ad in two new markets'], ['Founders with no marketing hire', 'New launch, thin social presence', 'A launch film from their site']].map(([a, b, c]) => (
+            <div className="m-row" key={a}><b>{a}</b><span>{b}</span><span>{c}</span></div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export function Rebuild({ variant = 'faithful' }: { variant?: 'faithful' | 'upgraded' }) {
+  const upgraded = variant === 'upgraded'
   const [dark, setDark] = useState(false)
   const [tab, setTab] = useState<(typeof TABS)[number]>('Localize')
   const [aud, setAud] = useState<keyof typeof AUD>('For brands')
   const [open, setOpen] = useState<number | null>(null)
+  const [site, setSite] = useState('yourbrand.com')
+  const [started, setStarted] = useState(false)
   const a = AUD[aud]
+  const go = (id: string) => `#${id}`
   return (
-    <div className={`lt ${dark ? 'lt-dark' : ''}`} id="rebuild">
+    <div className={`lt ${dark ? 'lt-dark' : ''} ${upgraded ? 'lt-up' : ''}`} id="top">
       <header className="lt-header">
         <div className="lt-wrap lt-header-in">
-          <a href="#rebuild" className="lt-logo"><Wordmark /></a>
+          <a href={go('top')} className="lt-logo"><Wordmark /></a>
           <nav>
-            <a href="#rebuild">Product</a><a href="#rebuild">Use cases</a><a href="#rebuild">Examples</a>
-            <a href="#rebuild" className="lt-dd">Resources <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M2 3.5l3 3 3-3" /></svg></a>
-            <a href="#rebuild">Pricing</a>
+            <a href={go('how')}>Product</a>
+            <a href={go('audience')}>Use cases</a>
+            <a href={go('gallery')}>Examples</a>
+            {upgraded && <a href={go('teardowns')}>Teardowns</a>}
+            <a href={go('faq')} className="lt-dd">Resources <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M2 3.5l3 3 3-3" /></svg></a>
+            <a href={go('final')}>Pricing</a>
           </nav>
           <div className="lt-header-r">
             <button className="lt-icon" onClick={() => setDark(!dark)} aria-label="Toggle theme">{dark ? <Sun /> : <Moon />}</button>
-            <a href="#rebuild" className="lt-link">Sign in</a>
-            <a href="#rebuild" className="lt-btn lt-btn-sm">Start creating <Arrow /></a>
+            <a href={go('top')} className="lt-link">Sign in</a>
+            <a href={go('start')} className="lt-btn lt-btn-sm">Start creating <Arrow /></a>
           </div>
         </div>
       </header>
 
-      <section className="lt-hero">
+      <section className="lt-hero" id="start">
         <p className="lt-eyebrow">Automate growth</p>
         <h1>Your content engine.<br /><span>Always creating.</span></h1>
         <p className="lt-sub">Turn one idea into videos, ads, and entire campaigns.<br />Create, edit, and scale in one place.</p>
-        <div className="lt-cta-row">
-          <a href="#rebuild" className="lt-btn">Start creating <Arrow /></a>
-          <a href="#rebuild" className="lt-btn lt-btn-ghost">See how it works <Arrow /></a>
-        </div>
-        <div className="lt-clips">{CLIPS.map((c) => <Clip key={c.label} c={c} />)}</div>
-        <div className="lt-wrap lt-gallery"><a href="#rebuild">Explore the gallery <ArrowUR /></a></div>
+        {upgraded ? (
+          <form className="lt-start" onSubmit={(e) => { e.preventDefault(); setStarted(true) }}>
+            <div className="lt-url">
+              <input value={site} onChange={(e) => setSite(e.target.value)} aria-label="Your website" />
+              <button type="submit" className="lt-btn lt-btn-sm">Show me ideas <Arrow /></button>
+            </div>
+            <div className="m-chips lt-start-chips">
+              {['Skincare brand', 'Mobile game', 'Software product'].map((c) => (
+                <button type="button" key={c} onClick={() => { setSite(c.toLowerCase().replace(' ', '') + '.com'); setStarted(true) }}><span>{c}</span></button>
+              ))}
+            </div>
+            <p className="lt-credit">$10 free credit. No card required.</p>
+            {started && (
+              <div className="lt-story" id="storyboard">
+                <p className="lt-kicker">First storyboard, before any sign-up</p>
+                <div className="lt-scenes lt-story-row">
+                  {['Hook: the problem on camera', 'Routine or product in use', 'The result, then a clear ask'].map((s, i) => (
+                    <div key={s} className="lt-scene"><PhoneMini tone={i + 2} /><small>{s}</small></div>
+                  ))}
+                </div>
+                <a href={go('onboard')} className="lt-btn lt-btn-sm">Keep going, still no account needed <Arrow /></a>
+              </div>
+            )}
+          </form>
+        ) : (
+          <div className="lt-cta-row">
+            <a href={go('composer')} className="lt-btn">Start creating <Arrow /></a>
+            <a href={go('how')} className="lt-btn lt-btn-ghost">See how it works <Arrow /></a>
+          </div>
+        )}
+        <div className="lt-clips" id="gallery">{CLIPS.map((c) => <Clip key={c.label} c={c} />)}</div>
+        <div className="lt-wrap lt-gallery"><a href={go('gallery')}>Explore the gallery <ArrowUR /></a></div>
       </section>
 
-      <section className="lt-wrap lt-sec" id="lt-how">
+      {upgraded && <Onboard />}
+
+      <section className="lt-wrap lt-sec" id="how">
         <h2 className="lt-h2c">One idea. An entire content engine.</h2>
         <p className="lt-lead">From the first brief to the next campaign,<br />keep your creative process in one place.</p>
         <div className="lt-tabs" role="tablist">
@@ -204,7 +336,7 @@ export function Rebuild() {
 
       <hr className="lt-hr lt-wrap" />
 
-      <section className="lt-wrap lt-composer">
+      <section className="lt-wrap lt-composer" id="composer">
         <div>
           <p className="lt-kicker">Meet your creative partner</p>
           <h2>You bring the idea.<br />Latted gets to work.</h2>
@@ -224,7 +356,7 @@ export function Rebuild() {
         </div>
       </section>
 
-      <section className="lt-wrap lt-sec">
+      <section className="lt-wrap lt-sec" id="audience">
         <h2 className="lt-h2c lt-h2s">Built for the way you grow.</h2>
         <p className="lt-lead">One content engine. Your kind of creative.</p>
         <div className="lt-audience">
@@ -235,7 +367,7 @@ export function Rebuild() {
             <h3>{a[0]}</h3>
             <p>{a[1]}</p>
             <ul>{a[2].map((x) => <li key={x}><Check /> {x}</li>)}</ul>
-            <a href="#rebuild" className="lt-try">{a[3]} <Arrow /></a>
+            <a href={go('start')} className="lt-try">{a[3]} <Arrow /></a>
           </div>
           <div className="lt-aud-vis">
             <div className="lt-clip lt-clip-big" style={{ background: 'linear-gradient(165deg,#b9a393,#6f5a4b)' }}>
@@ -247,11 +379,19 @@ export function Rebuild() {
         </div>
       </section>
 
-      <section className="lt-wrap lt-sec">
+      {upgraded && (
+        <>
+          <ShareSection />
+          <TeardownsSection />
+          <FromAdsSection />
+        </>
+      )}
+
+      <section className="lt-wrap lt-sec" id="workflows">
         <div className="lt-panel lt-workflows">
           <h2>Don't start from scratch.<br /><span>Start from what works.</span></h2>
           <p>Save your process as a workflow. Set a schedule, add review checkpoints, and keep your next batch moving.</p>
-          <a href="#rebuild" className="lt-ex">Explore workflows <ArrowUR /></a>
+          <a href={go('top')} className="lt-ex">Explore workflows <ArrowUR /></a>
           <div className="lt-steps">
             {[['01', 'Set the direction', 'Your brand, your audience, your brief.'], ['02', 'Create & adapt', 'Fresh videos. More angles to explore.'], ['03', 'Review & repeat', 'Your standards, built into the process.']].map(([n, t, d]) => (
               <div key={n}><small>{n}</small><b>{t}</b><span>{d}</span></div>
@@ -260,10 +400,10 @@ export function Rebuild() {
         </div>
       </section>
 
-      <section className="lt-wrap lt-faq">
+      <section className="lt-wrap lt-faq" id="faq">
         <div>
           <h2>A few things<br />you might be<br />wondering.</h2>
-          <p className="lt-small">More questions? <a href="#rebuild">Head to the docs <ArrowUR /></a></p>
+          <p className="lt-small">More questions? <a href={go('top')}>Head to the docs <ArrowUR /></a></p>
         </div>
         <div className="lt-faq-list">
           {FAQ.map(([q, ans], i) => (
@@ -275,12 +415,12 @@ export function Rebuild() {
         </div>
       </section>
 
-      <section className="lt-final">
+      <section className="lt-final" id="final">
         <div className="lt-wrap lt-final-in">
           <AppIcon />
           <h2>Your next big thing<br />starts with one idea.</h2>
           <p>Let's make it happen.</p>
-          <a href="#rebuild" className="lt-btn">Start creating <Arrow /></a>
+          <a href={go('top')} className="lt-btn">Start creating <Arrow /></a>
           <small>$10 free credit. No card required.</small>
         </div>
       </section>
@@ -291,14 +431,14 @@ export function Rebuild() {
             <div>
               <Wordmark />
               <p>The content engine for organic and paid growth.</p>
-              <a href="#rebuild" className="lt-btn lt-btn-sm">Start creating <Arrow /></a>
+              <a href={go('start')} className="lt-btn lt-btn-sm">Start creating <Arrow /></a>
             </div>
             <div className="lt-foot-cols">
-              <div><b>Product</b><a href="#rebuild">Product</a><a href="#rebuild">Use cases</a><a href="#rebuild">Examples</a><a href="#rebuild">Pricing</a></div>
-              <div><b>Resources</b><a href="#rebuild">Documentation</a><a href="#rebuild">Blog</a><a href="#rebuild">Sign in</a></div>
+              <div><b>Product</b><a href={go('how')}>Product</a><a href={go('audience')}>Use cases</a><a href={go('gallery')}>Examples</a><a href={go('final')}>Pricing</a></div>
+              <div><b>Resources</b>{upgraded && <a href={go('teardowns')}>Teardowns</a>}<a href={go('faq')}>Documentation</a><a href={go('top')}>Blog</a><a href={go('top')}>Sign in</a></div>
             </div>
           </div>
-          <div className="lt-foot-bot"><span>© 2026 Latted (concept)</span><span><a href="#rebuild">Privacy policy</a><a href="#rebuild">Terms of service</a><button className="lt-icon" onClick={() => setDark(!dark)} aria-label="Toggle theme">{dark ? <Sun /> : <Moon />}</button></span></div>
+          <div className="lt-foot-bot"><span>© 2026 Latted (concept)</span><span><a href={go('top')}>Privacy policy</a><a href={go('top')}>Terms of service</a><button className="lt-icon" onClick={() => setDark(!dark)} aria-label="Toggle theme">{dark ? <Sun /> : <Moon />}</button></span></div>
         </div>
       </footer>
     </div>
